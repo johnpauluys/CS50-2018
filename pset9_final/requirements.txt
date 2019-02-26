@@ -1,0 +1,4 @@
+ItsDangerous==0.24
+Flask
+Flask-Session
+requests

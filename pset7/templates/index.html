@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+    {% if transactions %}
+        <table class="table-sm">
+            <tr>
+                <th scope="col">Stock</th>
+                <th scope="col" class="text-center">Shares</th>
+                <th scope="col" class="text-right">Price</th>
+                <th scope="col" class="text-right">Value</th>
+                <th scope="col"></th>
+            </tr>
+            {% for item in transactions %}
+                {% if item["SUM(shares)"] > 0 %}
+                    <form class="form-group" action="/action" method="post">
+                        <tr>
+                            <td><span title="{{ item['company'] }}">{{ item['stock'] }}</span></td>
+                            <td class="text-center">{{ item['SUM(shares)'] }}</td>
+                            <td class="text-right">{{ item['price'] }}</td>
+                            <td class="text-right">{{ item['value'] }}</td>
+                            <td width="100" nowrap>
+                                <input class="btn btn-outline-success btn-sm" name="action" value="Buy" type="submit">
+                                <input class="btn btn-outline-danger btn-sm" name="action" value="Sell" type="submit">
+                            </td>
+                        </tr>
+                        <input type="hidden" name="symbol" value="{{ item['stock'] }}"/>
+                        <input type="hidden" name="shares" value="{{ item['SUM(shares)'] }}"/>
+                        <input type="hidden" name="price" value="{{ item['price'] }}"/>
+                    </form>
+                {% endif %}
+            {% endfor %}
+        </table>
+    {% else %}
+        <div>You currently don't own any shares.</div>
+    {% endif %}
+    <br>
+    {% include "balance.html" %}
+{% endblock %}

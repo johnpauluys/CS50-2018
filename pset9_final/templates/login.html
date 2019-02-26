@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    User Login
+{% endblock %}
+
+{% block main %}
+
+    <!--display error message if invalid input was given-->
+    <!--otherwise display usual msg-->
+    <div class="col-md-4 my-2 offset-md-4">
+    {% if error_msg %}
+        <p class="text-danger p-1">{{ error_msg }}</p>
+    {% else %}
+        <p class="text-secondary p-1">Please enter username and password:</p>
+    {% endif %}
+    </div>
+
+    <form action="/login" method="post" novalidate>
+        <div class="form-row">
+            <div class="col-md-4 mb-2 offset-md-4">
+                <input class="form-control requiredField" id="loginUsr" name="username" type="text" placeholder="Username" required
+                {% if username %}
+                    value={{ username }}
+                {% else %}
+                    autofocus
+                {% endif %}>
+                <div class="emptyFieldFeedback">Please enter your username.</div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-2 offset-md-4">
+                <input class="form-control requiredField" id="loginPwd" name="password" type="password" placeholder="Password" required
+                {% if username %}
+                    autofocus
+                {% endif %}>
+                <div class="emptyFieldFeedback">Please enter your password.</div>
+            </div>
+        </div>
+        <input class="btn btn-primary mt-2" id="login" type="submit" value="Log In"></button>
+    </form>
+    <p class="text-secondary"><br>No username yet? <a href='/register'>Register here!</a></p>
+{% endblock %}

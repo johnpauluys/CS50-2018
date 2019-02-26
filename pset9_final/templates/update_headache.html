@@ -1,0 +1,115 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Unresolved Headache
+{% endblock %}
+
+{% block main %}
+
+    <p class="text-secondary mb-4">At <span class="font-weight-bold">{{ rows.start_time[:5] }}</span> a <span class="font-weight-bold">{{ rows.type }}</span> headache was reported and is still unresolved.</p>
+
+    <form class="text-left" id="updateHeadache" action="/headache" method="post">
+        <!--passing variables from html back to python-->
+        <input type="hidden" name="_id" value="{{ rows.id }}">
+        <input type="hidden" name="_start_time" value="{{ rows.date }} {{ rows.start_time }}">
+        <input type="hidden" name="_old_comments" value="{{ rows.comments }}">
+        {% if rows.medication %}
+            <input type="hidden" name="_prev_medication" value="{{ rows.medication }}">
+            <input type="hidden" name="_prev_medication_effect" value="{{ rows.medication_effect }}">
+        {% endif %}
+        <fieldset class="form-group">
+            <div class="row">
+                <legend class="col-form-label col-sm-3 offset-sm-3 pt-0">Do you still have this headache?</legend>
+                <div class="col-sm-6">
+                    <div class="form-check-inline">
+                        <input class="form-check-input" type="radio" name="_resolved" value="yes">
+                        {% set resolved = true %}
+                        <label class="form-check-label">no</label>
+                    </div>
+                    <div class="form-check-inline">
+                        <input class="form-check-input" type="radio"  name="_resolved" value="no" checked>
+                        {% set resolved = false %}
+                        <label class="form-check-label">yes</label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        {% if rows.medication %}
+            {% set medication = rows.medication.split('; ') %}
+            {% set medication_effect = rows.medication_effect.split('; ') %}
+            {% if medication_effect[-1] == "too early" %}
+                <fieldset class="form-group pl-4" id="_meds_update">
+                    <div class="row">
+
+                        <legend class="col-form-label col-sm-3 offset-sm-3 pt-0">You took <b>{{ medication[-1] }}</b> earlier. Did it help at all?</legend>
+                        <div class="col-sm-6 pt-1">
+                            <div class="form-check-inline">
+                                <input class="form-check-input" type="radio" name="_updated_medication_effect" value="no effect" checked>
+                                <label class="form-check-label">no</label>
+                            </div>
+                            <div class="form-check-inline">
+                                <input class="form-check-input" type="radio" name="_updated_medication_effect" value="a little">
+                                <label class="form-check-label">only a little</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            {% endif %}
+        {% endif %}
+
+        <fieldset class="form-group pl-4 slidable" id="_resolved_time">
+            <div class="row">
+                <legend class="col-form-label col-sm-3 offset-sm-3 pt-0">When did you notice the pain stopped?</legend>
+                <div class="col-sm-6">
+                    {% include '_time.html' %}
+                </div>
+            </div>
+        </fieldset>
+
+         <fieldset class="form-group" id="_medication_choice">
+            <div class="row">
+                <legend class="col-form-label col-sm-3 offset-sm-3 pt-0">
+                    {% if rows.medication %}
+                        Did you take any other medication?
+                    {% else %}
+                        Have you taken any medication?
+                    {% endif %}
+                </legend>
+                {% include "_meds_choice.html" %}
+            </div>
+        </fieldset>
+
+        <!--set a variable to check which options _meds.html should use-->
+        {% set new_headache = false %}
+        {% include "_meds.html" %}
+
+
+        <fieldset class="form-group" id="_routine">
+            <div class="row">
+                <label class="col-form-label col-sm-3 offset-sm-3 pt-0">How has the headache affected your normal routine?</label>
+                <div class="col-sm-6">
+                    <div class="form-group ml-3">
+                        <textarea class="form-input" rows="3" type="text" name="routine_disruption" placeholder="eg. left work/school early"> {{ rows.routine_disruption }}</textarea>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+            <div class="row">
+                <label class="col-form-label col-sm-3 offset-sm-3 pt-0">Comments</label>
+                <div class="col-sm-6">
+                    <div class="form-group ml-3">
+                        <textarea class="form-input" rows="3" type="text" name="comments"></textarea>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="text-center">
+            <input class="btn btn-primary" name="_update_headache" type="submit" value="Update">
+        </div>
+
+
+{% endblock %}

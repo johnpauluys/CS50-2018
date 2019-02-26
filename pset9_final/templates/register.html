@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    User Registration
+{% endblock %}
+
+{% block main %}
+    <div class="col-md-4 my-2 offset-md-4">
+        <p class="text-secondary p-1">Please fill out the following fields to register:</p>
+    </div>
+    <form class="regForm" action="/register" method="post" novalidate>
+        <div class="form-row">
+            <div class="col-md-4 mb-2 offset-md-2">
+                <input class="form-control requiredField" id="regFirstName" name="first_name" type="text" placeholder="First name" autocomplete="on" autofocus required>
+                <div class="emptyFieldFeedback">Please enter your first name.</div>
+            </div>
+            <div class="col-md-4 mb-2">
+                <input class="form-control" id="regMiddleName" name="middle_name" type="text" placeholder="Middle name (optional)" autocomplete="on">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4 mb-2 offset-md-2">
+                <input class="form-control requiredField" id="regLastName" name="last_name" type="text" placeholder="Last name" autocomplete="on" required>
+                <div class="emptyFieldFeedback">Please enter your last name.</div>
+            </div>
+            <div class="col-md-4 mb-2">
+                <input class="form-control requiredField" id="regBirth" name="birthdate" type="text" placeholder="Birthday (yyyymmdd)" autocomplete="on" required>
+                <div class="emptyFieldFeedback">Please enter date of your birth.</div>
+                <div class="invalidFeedback">Please enter a valid date. </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4 mb-2 offset-md-2">
+                <input class="form-control requiredField" id="regEmail" name="email" type="email" placeholder="Email" autocomplete="on" required>
+                <div class="emptyFieldFeedback">Please enter an email address.</div>
+                <div class="invalidFeedback">Please enter a valid email adress.</div>
+                <div class="emailExists">Email already exists on our server.</div>
+            </div>
+            <div class="col-md-4 mb-2">
+                <input class="form-control" id="regMobile" name="mobile" type="text" placeholder="Mobile (optional)" autocomplete="on">
+            </div>
+        </div>
+
+        <div class="form-row mt-2">
+            <div class="col-md-4 mb-2 offset-md-4">
+                <input class="form-control requiredField" id="regUsername" name="username" type="text" placeholder="Username" autocomplete="on" required>
+                <div class="emptyFieldFeedback">Please choose a username.</div>
+                <div class="invalidFeedback">Username already exists.</div>
+            </div>
+        </div>
+
+
+        <div class="form-row">
+            <div class="col-md-4 mb-2 offset-md-4">
+                <input class="form-control requiredField" id="regPwd" name="password" type="password" placeholder="Password" autocomplete="off" required>
+                <div class="emptyFieldFeedback">Please choose a password.</div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4 mb-2 offset-md-4">
+                <input class="form-control requiredField" id="regPwd2" name="confirmation" type="password" placeholder="Re-type password" autocomplete="on" required>
+                <div class="emptyFieldFeedback">Please re-type chosen password.</div>
+                <div class="invalidFeedback"></div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4 mb-2 offset-md-4">
+                <div class="form-check-inline">
+                    <input class="form-check-input requiredField" type="checkbox" id="agreement" required>
+                    <label class="form-check-label">I agree to the <a href="#" id="termsCondsSlider">terms and conditions</a>.</label>
+                </div>
+                <div class="emptyFieldFeedback">You have to agree to the terms and conditions to register.</div>
+            </div>
+        </div>
+
+        <div class="form-row slidable" id="termsConds">
+            <div class="border border-success rounded text-primary col-md-4 mb-2 offset-md-4 p-1">
+                <div class="border border-success p-2">
+                    <p><b>Look at this weirdo clicking to read the terms and conditions.</b></p>
+                    <p>I would like to take this opportunity to thank the entire CS50x staff!
+                        This course has been a ton of fun, extremely interesting and I really feel
+                        like I've learnt a boatload of new skills!</p>
+                    <p>Thank you all for your amazing work. I'm looking forward immensely to starting the
+                        CS50's Web Programming with Python and JavaScript course in January 2019.</p>
+                    <p><b>This <i>was</i> CS50!</b></p>
+                </div>
+            </div>
+        </div>
+        <input class="btn btn-primary mt-2" id="regBtn" type="submit" value="Register"></button>
+    </form>
+{% endblock %}

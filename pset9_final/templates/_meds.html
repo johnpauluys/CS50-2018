@@ -1,0 +1,38 @@
+<!--medication section used in report_headache.html and update_headache.html-->
+<fieldset class="form-group pl-4 slidable" id="_medication">
+    <div class="row">
+        <label class="col-form-label col-sm-3 offset-sm-3">Medication name</label>
+        <div class="col-sm-6">
+            <div class="form-input">
+                <input type="text" name="_medication_name" placeholder="eg. Ibuprofen">
+            </div>
+        </div>
+        <label class="col-form-label col-sm-3 offset-sm-3">Dosage</label>
+            <div class="col-sm-6">
+                <input type="text" name="_medication_dose" placeholder="eg. 400mg">
+            </div>
+        {% if not resolved %}
+        <label class="col-form-label col-sm-3 offset-sm-3">Did it help?</label>
+        <div class="col-sm-6 pt-1">
+            {% if new_headache %}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="_medication_effect" value="resolved headache" checked>
+                <label class="form-check-label">yes</label>
+            </div>
+            {% endif %}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="_medication_effect" value="helped a little" {% if not new_headache %}checked{% endif %}>
+                <label class="form-check-label">a little</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="_medication_effect" value="no effect">
+                <label class="form-check-label">not at all</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="_medication_effect" value="too early">
+                <label class="form-check-label">too early to tell</label>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</fieldset>

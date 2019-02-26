@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Instant Action
+{% endblock %}
+
+{% block main %}
+    <form action="/{{ action|lower }}" method="post">
+        <div class="form-group">Please enter the number of shares you wish to {{ action|lower }}:</div>
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="shares" size="3" type="text"/>
+            <span class="m-2">x</span>
+            <input type="hidden" name="symbol" value="{{ symbol }}"/>
+            <span>{{ symbol }} ({{ price }})</span>
+        </div>
+        <button class="btn btn-primary" type="submit">{{ action }}</button>
+    </form>
+{% endblock %}

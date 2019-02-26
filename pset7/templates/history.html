@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+    {% if transactions %}
+        <table class="table-sm table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col" class="text-center">Company</th>
+                    <th scope="col" class="text-center">Action</th>
+                    <th scope="col" class="text-center">Shares</th>
+                    <th scope="col" class="text-right">Price</th>
+                </tr>
+            </thead>
+            {% for item in transactions %}
+                {% if item['shares'] < 0 %}
+                    <tr class="text-muted">
+                {% else %}
+                    <tr>
+                {% endif %}
+                    <td><span title="{{ item['time'] }}">{{ item['date'] }}</span></td>
+                    <td class="text-center"><span title="{{ item['company'] }}">{{ item['stock'] }}</span></td>
+                    <td class="text-center">{% if item['shares'] > 0 %}
+                            BUY
+                        {% else %}
+                            SELL
+                        {% endif %}</td>
+                    <td class="text-center"><span title="Value: {{ item['value'] }}">{{ item['shares']|abs }}</span></td>
+                    <td class="text-right">{{ item['usdprice'] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <span class="text">You currently don't own any shares.</span>
+    {% endif %}
+    <br>
+    {% include "balance.html" %}
+{% endblock %}

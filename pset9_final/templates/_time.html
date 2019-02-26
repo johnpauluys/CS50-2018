@@ -1,0 +1,14 @@
+<!--time section used in report_headache.html and update_headache.html-->
+<div class="form-check">
+    <input class="form-check-input" type="radio" name="_time" value="now" checked>
+    <label class="form-check-label">now</label>
+</div>
+<div class="form-check">
+    <input class="form-check-input" type="radio" name="_time" value="other">
+    <input class="otherField timePassed col-sm-2 px-0" type="number" min=15 max=105 value=15 step=15 name="_time_passed">
+    <select class="timeUnit" name="_time_unit">
+        <option value="minutes">minutes</option>
+        <option value="hours">hour(s)</option>
+    </select>
+    <label class="form-check-label">ago</label>
+</div>
