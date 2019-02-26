@@ -1,0 +1,45 @@
+<table class="table table-sm">
+    <tbody>
+        {% for row in range((s1|length) + 3) %}
+        <tr>
+
+            <!--display first column-->
+            {% if (row - 3) < 0 %}
+                <th></th>
+            {% else %}
+                <th>{{ s1[row - 3] }}</th>
+            {% endif %}
+
+            <!--display second column-->
+            {% if (row - 2) < 0 %}
+                <th></th>
+            {% else %}
+                <th>{{ (row - 2) }}</th>
+            {% endif %}
+
+            <!--display the remaining columns-->
+            {% if (row == 0) %}
+                <th></th>
+                {% for c in s2 %}
+                    <th>{{ c }}</th>
+                {% endfor %}
+
+            {% elif (row - 1) < 0 %}
+                <th></th>
+
+            {% elif (row == 1) %}
+                {% for i in range((s2|length) + 1) %}
+                    <th>{{ i }}</th>
+                {% endfor %}
+
+            {% else %}
+                {% for i in range((s2|length) + 1) %}
+                    <td>{{ matrix[row - 2][i][0] }}</td>
+                {% endfor %}
+
+            {% endif %}
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
